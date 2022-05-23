@@ -16,7 +16,7 @@ export class FirstComponent implements OnInit, OnDestroy {
   // private http: HttpClient
   apis:Api[] = [];
   apiForm: FormGroup;
-  constructor(private servicio:ServicioService, private route:Router,
+  constructor(public servicio:ServicioService, private route:Router,
               private fb: FormBuilder) {
                 this.apiForm = this.fb.group({
                   ID:          [null,[Validators.required]],
@@ -31,12 +31,13 @@ export class FirstComponent implements OnInit, OnDestroy {
               }
  
   async ngOnInit() {
-    this.apis = this.servicio.obtenerDatos()
+    this.apis = this.servicio.obtenerDatos();
     console.log(this.apis)
   }
 
   ngOnDestroy(): void {
     console.log('El componente first se destruyo')
+
   }
 
   verMas(id:number){
@@ -47,10 +48,34 @@ export class FirstComponent implements OnInit, OnDestroy {
   agregarApi(){
     if(this.apiForm.valid){
       console.log(this.apiForm.value);
+      this.servicio.agregarApi(this.apiForm.value);
+      this.servicio.obtenerDatos();
     }else{
       console.log('invalido')
     }
     
+  }
+
+  guardarCambios(){
+    if (this.apiForm.valid){
+      this.apis = this.servicio.editarApi(this.apiForm.value);
+    }
+  }
+
+ editarApi(api:Api){
+    this.apiForm.controls['ID'].setValue(api.ID)
+    this.apiForm.controls['API'].setValue(api.API)
+    this.apiForm.controls['Description'].setValue(api.Description)
+    this.apiForm.controls['Auth'].setValue(api.Auth)
+    this.apiForm.controls['HTTPS'].setValue(api.HTTPS)
+    this.apiForm.controls['Cors'].setValue(api.Cors)
+    this.apiForm.controls['Link'].setValue(api.Link)
+    this.apiForm.controls['Category'].setValue(api.Category)
+ }
+
+  eliminarApi(id:number){
+      this.apis = this.servicio.eliminarApi(id);
+      console.log(this.servicio.datos)
   }
  
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Api } from '../interfaces/api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "yes",
         "Link": "https://www.adoptapet.com/public/apis/pet_list.html",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 2,
@@ -25,7 +26,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "no",
         "Link": "https://theaxolotlapi.netlify.app/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 3,
@@ -35,7 +36,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "no",
         "Link": "https://alexwohlbruck.github.io/cat-facts/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 4,
@@ -45,7 +46,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "no",
         "Link": "https://cataas.com/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 5,
@@ -55,7 +56,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "no",
         "Link": "https://docs.thecatapi.com/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 6,
@@ -65,7 +66,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "yes",
         "Link": "https://dukengn.github.io/Dog-facts-API/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 7,
@@ -75,7 +76,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "yes",
         "Link": "https://kinduff.github.io/dog-api/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 8,
@@ -85,7 +86,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "yes",
         "Link": "https://dog.ceo/dog-api/",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 9,
@@ -95,7 +96,7 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "no",
         "Link": "https://documenter.getpostman.com/view/664302/S1ENwy59",
-        "Category": "Animals"
+        "Category": "Animals",
       },
       {
         "ID" : 10,
@@ -105,12 +106,52 @@ export class ServicioService {
         "HTTPS": true,
         "Cors": "yes",
         "Link": "https://www.fishwatch.gov/developers",
-        "Category": "Animals"
+        "Category": "Animals",
       }
     ]
   }
 
   obtenerDatos():any[]{
     return this.datos
+  }
+
+  agregarApi(api:Api){
+    this.datos.push(api);
+  }
+
+  editarApi(api:Api):Api[]{
+ 
+    this.datos = this.datos.filter((e) => {
+      if(e.ID == api.ID){
+        e.Description = api.Description;
+        e.API = api.API;
+        e.Auth = api.Auth;
+        e.HTTPS = api.HTTPS;
+        e.Cors = api.Cors;
+        e.Link = api.Link;
+        e.Category = api.Category;
+      }
+      return e
+    });
+    return this.datos
+  }
+
+  eliminarApi(id:number):Api[]{
+    this.datos = this.datos.filter((e) => e.ID !== id);
+    return this.datos
+  }
+
+  buscarApi(termino:string){
+    let ApiArr:Api[] = [];
+
+    termino = termino.toLowerCase();
+    for (const api of this.datos) {
+      let nombre = api.API.toLowerCase()
+      if (nombre.indexOf(termino) >= 0){
+        ApiArr.push(api);
+      }
+    }
+    console.log(ApiArr)
+    return ApiArr
   }
 }

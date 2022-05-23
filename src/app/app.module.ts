@@ -7,13 +7,15 @@ import { FirstComponent } from './components/first/first.component';
 import { SecondComponent } from './components/second/second.component';
 import { RountingModule } from './rounting.module';
 import { NavbarComponent } from './share/navbar/navbar.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FirstComponent,
     SecondComponent,
-    NavbarComponent
+    NavbarComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,

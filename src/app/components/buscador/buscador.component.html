@@ -1,0 +1,12 @@
+<h4 class="mt-2 mb-2 text-center">Buscador</h4>
+<div class="container text-center">
+    <div class="card"  *ngFor="let api of apis" style="width: 18rem;" >
+        <div class="card-body">
+          <h5 class="card-title">{{api.API}}</h5>
+          <p class="card-text">{{api.Description}}</p>
+          <p class="card-text">{{api.Link}}</p>
+          <p class="card-text">{{api.Category}}</p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+</div>
